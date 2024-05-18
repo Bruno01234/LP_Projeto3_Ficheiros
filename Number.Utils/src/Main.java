@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.lang.Math;
+import java.util.Collections;
 
 public class Main {
     public static void main(String[] args) {
@@ -16,7 +17,10 @@ public class Main {
 
     double CalcularMediana(ArrayList<Double> numeros) {
         boolean even;
-        double median = numeros.get(numeros.size() / 2);
+        int median = numeros.size() / 2;
+        ArrayList<Double> ordenados = new ArrayList(numeros);
+        Collections.sort(ordenados);
+
         if (numeros.size() % 2 == 0) {
             even = false;
         } else {
@@ -26,9 +30,7 @@ public class Main {
         if (!even) {
             return median;
         } else {
-            double plusOne = (Math.ceil(median));
-            double minusOne = (Math.floor(median));
-            return (plusOne + minusOne) / 2;
+            return (ordenados.get(median - 1) + ordenados.get(median));
         }
 
     }
@@ -37,7 +39,15 @@ public class Main {
 
     }
 
-    double OrdenarLista(ArrayList<Double> numeros, boolean crescente) {
+    ArrayList<Double> OrdenarLista(ArrayList<Double> numeros, boolean crescente) {
+
+        if (crescente) {
+            Collections.sort(numeros);
+        } else {
+            Collections.sort(numeros, Collections.reverseOrder());
+        }
+
+        return numeros;
 
     }
 
