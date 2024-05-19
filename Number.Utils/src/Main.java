@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.lang.Math;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
@@ -30,13 +32,27 @@ public class Main {
         if (!even) {
             return median;
         } else {
-            return (ordenados.get(median - 1) + ordenados.get(median));
+            return (ordenados.get(median - 1) + ordenados.get(median) / 2.0);
         }
 
     }
 
-    double CalcularModa(ArrayList<Double> numeros) {
+    ArrayList<Double> CalcularModa(ArrayList<Double> numeros) {
 
+        Map<Double,Integer> frequencia = new HashMap<Double,Integer>();
+        for (double numero : numeros) {
+            frequencia.put(numero,frequencia.getOrDefault(numero,0) + 1);
+        }
+
+        int MaxFrequencia = Collections.max(frequencia.values());
+        ArrayList<Double> modas = new ArrayList<>();
+
+        for (Map.Entry<Double,Integer> entry : frequencia.entrySet()) {
+            if (entry.getValue() == MaxFrequencia) {
+                modas.add(entry.getKey());
+            }
+        }
+        return modas;
     }
 
     ArrayList<Double> OrdenarLista(ArrayList<Double> numeros, boolean crescente) {
